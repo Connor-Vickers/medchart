@@ -60,28 +60,46 @@ export default {
       });
     },
     update_chart() {
-      const ctx = document.getElementById('chart');
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [
-            {
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1,
-            },
+      this.chart.data.datasets = [
+        {
+          data: [
+            { x: 5, y: 20 },
+            { x: 6, y: 10 },
+            { x: 10, y: 40 },
           ],
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+      ];
+      this.chart.update();
+    },
+  },
+  mounted() {
+    const ctx = document.getElementById('chart');
+    this.chart = new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [
+          {
+            data: [
+              { x: '2022-1-9', y: 20 },
+              { x: '2022-1-1', y: 10 },
+              { x: '2022-1-11', y: 40 },
+            ],
+          },
+        ],
+      },
+      options: {
+        showLine: true,
+
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+          x: {
+            type: 'time',
           },
         },
-      });
-    },
+      },
+    });
   },
 };
 </script>
