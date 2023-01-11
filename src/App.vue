@@ -60,13 +60,26 @@ export default {
       });
     },
     update_chart() {
+      let data = [
+        { x: this.medications[0].start_date, y: 0 },
+        {
+          x: this.medications[0].start_date,
+          y: this.medications[0].starting_dose,
+        },
+      ];
+      if (this.medications[0].currently_taking) {
+        data.push({ x: new Date(), y: this.medications[0].starting_dose });
+      } else {
+        data.push({
+          x: this.medications[0].end_date,
+          y: this.medications[0].starting_dose,
+        });
+        data.push({ x: this.medications[0].end_date, y: 0 });
+      }
+
       this.chart.data.datasets = [
         {
-          data: [
-            { x: 5, y: 20 },
-            { x: 6, y: 10 },
-            { x: 10, y: 40 },
-          ],
+          data: data,
         },
       ];
       this.chart.update();
@@ -80,7 +93,7 @@ export default {
         datasets: [
           {
             data: [
-              { x: '2022-1-9', y: 20 },
+              { x: '2022-1-9 00:00', y: 20 },
               { x: '2022-1-1', y: 10 },
               { x: '2022-1-11', y: 40 },
             ],
